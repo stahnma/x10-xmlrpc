@@ -1,0 +1,9 @@
+
+
+Ideas
+
+Method for On and Off
+
+x10.remote.turnOn(token, A1)
+
+x10.remote.turnOff(token, A1)
