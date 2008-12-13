@@ -69,18 +69,6 @@ task :install => [ :generate ] do
   puts "install -p -m644 -o root -g root *.png #{installdir}#{basedir}"
   sh   "install -p -m644 -o root -g root *.png #{installdir}#{basedir}"
 
-  # install daemon
-  puts "install -p -m755 -o root -g root x10-xmlrpcd.rb #{installdir}#{basedir}/x10-xmlrpcd"
-  sh   "install -p -m755 -o root -g root x10-xmlrpcd.rb #{installdir}#{basedir}/x10-xmlrpcd"
-
-  # install x10-xmlrpcd.init into /etc/init.d
-  puts "install -p -m755 -o root -g root x10-xmlrpcd.init #{installdir}/etc/init.d/x10-xmlrpcd"
-  sh   "install -p -m755 -o root -g root x10-xmlrpcd.init #{installdir}/etc/init.d/x10-xmlrpcd"
-
-  # install the /sbin shell script
-  puts "install -p -m755 -o root -g root x10-xmlrpcd.sh #{installdir}/sbin/x10-xmlrpcd"
-  sh   "install -p -m755 -o root -g root x10-xmlrpcd.sh #{installdir}/sbin/x10-xmlrpcd"
-
   # install the generated files
   puts "install -p -m755 -o root -g root on.rb #{installdir}#{basedir}"
   sh   "install -p -m755 -o root -g root on.rb #{installdir}#{basedir}"
@@ -93,3 +81,16 @@ task :install => [ :generate ] do
 end
 
 
+task :server do
+  # install x10-xmlrpcd.init into /etc/init.d
+#  puts "install -p -m755 -o root -g root x10-xmlrpcd.init #{installdir}/etc/init.d/x10-xmlrpcd"
+#  sh   "install -p -m755 -o root -g root x10-xmlrpcd.init #{installdir}/etc/init.d/x10-xmlrpcd"
+
+  # install the /sbin shell script
+#  puts "install -p -m755 -o root -g root x10-xmlrpcd.sh #{installdir}/sbin/x10-xmlrpcd"
+#  sh   "install -p -m755 -o root -g root x10-xmlrpcd.sh #{installdir}/sbin/x10-xmlrpcd"
+
+  # install daemon
+  puts "install -p -m755 -o root -g root x10-xmlrpcd.rb #{installdir}#{basedir}/x10-xmlrpcd"
+  sh   "install -p -m755 -o root -g root x10-xmlrpcd.rb #{installdir}#{basedir}/x10-xmlrpcd"
+end
