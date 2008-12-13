@@ -7,3 +7,5 @@ x Implement Rake clean
 * Add authentication
 * Create init script for the app server
 * Autobuild tarball
+* FHS compliant
+* Break into  client/server portions

@@ -2,27 +2,50 @@
 #
 # /etc/rc.d/init.d/x10-xmlrpcd
 #
-# chkconfig: 2345 55 25                                                                                           
+# chkconfig: 2345 90 10                                                                                           
 # description: This service allows simple CGI/HTTP calls to control X10. 
 #                                                                                                                 
 # processname: x10-xmlrpcd  
 # pidfile: /var/run/x10-xmlrpcd.pid
 # lockfile: /var/lock/subsys/x10-xmlrpcd
 
+LOCKFILE=/var/lock/subsys/x10-xmlrpcd
+PIDFILE=/var/run/x10-xmlrpcd.pid
+
 # Source function library.
 . /etc/rc.d/init.d/functions
 
 case "$1" in
 	start)
-		echo -n "Starting x10-xmlrpcd services: "
-                daemon /sbin/x10-xmlrpcd
-                RETVAL=$?
-                [ $RETVAL -eq 0 ] && touch $LOCKFILE
+                if [ ! -f $LOCKFILE ]; then
+		     echo -n "Starting x10-xmlrpcd services: "
+                    if [ $UID -ne 0 ]; then
+                       RETVAL=4
+                       failure
+                    else
+                       daemon --user=stahnma /sbin/x10-xmlrpcd
+                       RETVAL=$?
+                       [ $RETVAL -eq 0 ] && touch $LOCKFILE
+                    fi;
+                fi
+                echo
+
+
+                #return $RETVAL
 	;;
 	stop)
 		echo -n "Shutting down x10-xmlrpcd services: "
-	#	<stop daemons, perhaps with the killproc function>
-		rm -f /var/lock/subsys/x10-xmlrpcd
+                if [ $UID -ne 0 ]; then
+                    RETVAL=4
+                    failure
+                else
+                    killproc /sbin/x10-xmlrpcd
+                    RETVAL=$?
+                    [ $RETVAL -eq 0 ] && rm -f $LOCKFILE
+                fi;
+                echo
+                #return $RETVAL
+ 
 	;;
 	status)
 	#	<report the status of the daemons in free-form format,
@@ -35,13 +58,6 @@ case "$1" in
 	#	<cause the service configuration to be reread, either with
 	#	kill -HUP or by restarting the daemons, possibly with
 	#	$0 stop; $0 start>
-	;;
-	probe)
-	#	<optional. If it exists, then it should determine whether
-	#	or not the service needs to be restarted or reloaded (or
-	#	whatever) in order to activate any changes in the configuration
-	#	scripts. It should print out a list of commands to give to
-	#	$0; see the description under the probe tag below.>
 	;;
 	*)
 		echo "Usage: x10-xmlrpcd {start|stop|status|reload|restart[|probe]"
