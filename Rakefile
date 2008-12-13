@@ -39,17 +39,44 @@ end
 
 
 task :install => :generate do
+  basedir = "/usr/share/x10-xmlrpc"
   installdir = "" 
   if ENV['DESTDIR'] 
     installdir = ""  + ENV['DESTDIR']
   end 
+
   puts "Preparing for installation."
-  puts "mkdir -p #{installdir}/var/www/html/x10"
-  sh "mkdir -p #{installdir}/var/www/html/x10"
+  puts "Creating Directories"
+ 
+  # /usr/share/x10-xmlrpc
+  puts "mkdir -p #{installdir}#{basedir}"
+  sh "mkdir -p #{installdir}#{basedir}"
+ 
+  # /etc/httpd/conf.d
   puts "mkdir -p #{installdir}/etc/httpd/conf.d"
   sh "mkdir -p #{installdir}/etc/httpd/conf.d"
-  puts "cp -f x10.conf #{installdir}/etc/httpd/conf.d"
-  sh "cp -f x10.conf #{installdir}/etc/httpd/conf.d"
+
+  # install x10.conf for Apache 
+  puts "install -p -m644 -o root -g root x10.conf #{installdir}/etc/httpd/conf.d"
+  sh   "install -p -m644 -o root -g root x10.conf #{installdir}/etc/httpd/conf.d"
+  
+  # install images 
+  puts "install -p -m644 -o root -g root *.png #{installdir}#{basedir}"
+  sh   "install -p -m644 -o root -g root *.png #{installdir}#{basedir}"
+
+  # install daemon
+  puts "install -p -m755 -o root -g root x10-xmlrpcd.rb #{installdir}/usr/share/x10-xmlrpc/x10-xmlrpcd"
+  sh   "install -p -m755 -o root -g root x10-xmlrpcd.rb #{installdir}/usr/share/x10-xmlrpc/x10-xmlrpcd"
+
+  # install x10-xmlrpcd.init into /etc/init.d
+  puts "install -p -m755 -o root -g root x10-xmlrpcd.init #{installdir}/etc/init.d/x10-xmlrpcd"
+  sh   "install -p -m755 -o root -g root x10-xmlrpcd.init #{installdir}/etc/init.d/x10-xmlrpcd"
+
+  # install the /sbin shell script
+  puts "install -p -m755 -o root -g root x10-xmlrpcd.sh #{installdir}/sbin/x10-xmlrpcd"
+  sh "install -p -m755 -o root -g root x10-xmlrpcd.sh #{installdir}/sbin/x10-xmlrpcd"
+
+  # Restart Apache
   puts "/sbin/service httpd restart"
   sh "/sbin/service httpd restart"
 end
