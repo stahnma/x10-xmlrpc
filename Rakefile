@@ -2,6 +2,7 @@
 
 require 'erb'
 
+remote_host='mythtv.stahnkage.com'
 
 task :default => :generate 
 task :generate => [ :generate_on, :generate_off ]  
