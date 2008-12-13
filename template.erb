@@ -8,7 +8,7 @@ print "Content-Type: text/html\r\n"
 print "\r\n"
 puts '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"> '
 puts "<html>"
-url="http://localhost:8080"
+url="http://mythtv.stahnkage.com:8080"
 puts XMLRPC::Client.new2(url).call("x10.remote.<%= tp %>", 'A1' )
 puts "<body>"
 puts "<img src='/x10/<%= tp %>.png' alt='Lights <%= tpc %> '>"
