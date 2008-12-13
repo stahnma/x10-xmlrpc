@@ -9,8 +9,6 @@ Have Ruby 1.8 or greater installed.
 
 Modify the variables in the xmlrpc-server.rb script to fit your environment.
 
-Setup SSH key authentication from your XMLRPC server system to the X10 controller system. 
-
 Run the xmlrpc-server.rb script.  It will spawn WEBrick and my really simple XMLRPC server. 
 
 Write an appropriate client.  A client is included, but it is extremely basic.  
