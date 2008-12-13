@@ -1,0 +1,8 @@
+* Add script/server support
+* Test for SSH connectivity upon server startup
+* Auto build an RPM
+* Implement Rake clean
+* Implement Rake install
+* Validate configuration on iPhone
+* Add authentication
+* 
