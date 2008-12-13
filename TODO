@@ -5,3 +5,4 @@ x Implement Rake install
 x Implement Rake clean
 * Validate configuration on iPhone
 * Add authentication
+* Create init script for the app server
