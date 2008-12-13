@@ -5,16 +5,13 @@
 
 require "xmlrpc/server"
 
-#TODO  swap out heyu for another software that has a better license 
+#TODO swap out heyu for another software that has a better license 
 x10_command = '/usr/local/bin/heyu'
 on_command = 'fon'
 off_command = 'foff'
 
-
 # Ensure that one can ssh from this host and to 
 #  the x10_controller as the remote_user
-#
-#
 #
 #TODO need a variable to bind to local IP address or something
 s = XMLRPC::Server.new(port=8080, host='192.168.1.104') 
