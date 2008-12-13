@@ -3,6 +3,7 @@
 require 'erb'
 
 remote_host='mythtv.stahnkage.com'
+basedir = "/usr/share/x10-xmlrpc"
 
 task :default => :generate 
 task :generate => [ :generate_on, :generate_off ]  
@@ -42,7 +43,6 @@ end
 
 
 task :install => [ :generate ] do
-  basedir = "/usr/share/x10-xmlrpc"
   installdir = "" 
   if ENV['DESTDIR'] 
     installdir = ""  + ENV['DESTDIR']
@@ -78,6 +78,13 @@ task :install => [ :generate ] do
   # Restart Apache
   puts "/sbin/service httpd restart"
   sh "/sbin/service httpd restart"
+end
+
+task :uninstall do
+  puts "rm -rf #{basedir}"
+  sh   "rm -rf #{basedir}"
+  puts "rm -f  /etc/httpd/conf.d/x10.conf"
+  sh   "rm -f  /etc/httpd/conf.d/x10.conf"
 end
 
 
