@@ -35,8 +35,8 @@ task :generate_off do
 end
 
 task :clean do
-  puts "rm -f off.rb on.rb"
-  sh "rm -f off.rb on.rb" 
+  puts "rm -f off.rb on.rb nohup.out"
+  sh   "rm -f off.rb on.rb nohup.out" 
 end
 
 
