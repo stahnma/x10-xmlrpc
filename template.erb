@@ -8,6 +8,9 @@ print "Content-Type: text/html\r\n"
 print "\r\n"
 puts '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"> '
 puts "<html>"
+puts '<head>'
+puts '<link rel="apple-touch-icon" href="/x10/<%= tp%>.png" />'
+puts '</head>'
 url="http://<%= remote_host %>:8080"
 puts XMLRPC::Client.new2(url).call("x10.remote.<%= tp %>", 'A1' )
 puts "<body>"
