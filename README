@@ -1,28 +1,44 @@
-A simple XMLRPC server written in Ruby to control my X10 setup.
+= x10-xmlrpc = 
+
+A simple XMLRPC server written in Ruby to control my X10 setup. 
 
 This probably won't be useful to anybody else.  Oh well.
 
 
 = Requirements = 
-Have Ruby 1.8 or greater installed. 
+== Client ==
+* Ruby >= 1.8
+* Rake
+* A web server (Apache used out of the box)
 
+== Server == 
+* Ruby >= 1.8
+* X10 controlling software setup
 
-Modify the variables in the xmlrpc-server.rb script to fit your environment.
+= Installation = 
+== Client ==
+* Pull the git source to the client
+* Modify any source you feel you need to
+* 'sudo rake install'
 
-Run the xmlrpc-server.rb script.  It will spawn WEBrick and my really simple XMLRPC server. 
+== Server ==
+* Transfer the x10-xmlrpcd.rb file over the to server
+* Run the above file.   It will spawn WEBrick and my really simple XMLRPC server. 
 
-Write an appropriate client.  A client is included, but it is extremely basic.  
 
 = TODO =
-Add Error Handling.  Like any. 
-Probably break out remote vs local calls for X10.  In my test case all calls were remote. 
+* See TODO in source or on github -- this is normally shorter term
+* Add Error Handling.  Like any. 
+* Add full unit testing
+* Add support for URL handling of Address space, right now A1 is basically a redirect 
+* Document the project
 
 
 = License = 
 BSD License. 
 
      
-Copyright (c) 2008, Michael Stahnke
+Copyright (c) 2008, Michael Stahnke 
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
