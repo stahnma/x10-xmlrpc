@@ -12,6 +12,17 @@ remote_command = '/usr/local/bin/heyu'
 on_command = 'fon'
 off_command = 'foff'
 
+
+# Ensure that one can ssh from this host and to 
+#  the x10_controller as the remote_user
+#
+# See if this works
+command = "ssh -l #{remote_user} #{x10_controller} /bin/true &> /dev/null"
+system(command)
+if $? != 0
+   raise "Problem with connecting to #{x10_controller} as #{remote_user}...aborting"
+end
+
 s = XMLRPC::Server.new(8080) 
 
 s.add_handler("x10.remote.on") do |address|
