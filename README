@@ -1,6 +1,6 @@
 = x10-xmlrpc = 
 
-A simple XMLRPC server written in Ruby to control my X10 setup. 
+A simple XMLRPC client/server written in Ruby to control my X10 setup. 
 
 This probably won't be useful to anybody else.  Oh well.
 
@@ -9,7 +9,7 @@ This probably won't be useful to anybody else.  Oh well.
 == Client ==
 * Ruby >= 1.8
 * Rake
-* A web server (Apache used out of the box)
+* A web server (Apache is the only thing tested)
 
 == Server == 
 * Ruby >= 1.8
@@ -30,7 +30,6 @@ This probably won't be useful to anybody else.  Oh well.
 * See TODO in source or on github -- this is normally shorter term
 * Add Error Handling.  Like any. 
 * Add full unit testing
-* Add support for URL handling of Address space, right now A1 is basically a redirect 
 * Document the project
 
 
