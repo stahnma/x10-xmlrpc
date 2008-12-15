@@ -1,48 +1,20 @@
 #!/usr/bin/env ruby
 
-require 'erb'
+#require 'erb'
 
 remote_host='mythtv.stahnkage.com'
 basedir = "/usr/share/x10-xmlrpc"
 
-task :default => :generate 
-task :generate => [ :generate_on, :generate_off ]  
-
-task :generate_on do
-  fh = File.new( "template.erb" )
-  eruby_script = fh.read
-  tp = 'on'
-  tpc = tp.upcase
-  erb = ERB.new(eruby_script)
-  output = File.new("on.rb", 'w')
-  output.puts erb.result(binding)
-  output.chmod 0755 
-  output.close
-  puts "Creating #{tp}.rb"
-  sh "sudo chown apache:apache #{tp}.rb"
-end
-
-task :generate_off do
-  fh = File.new( "template.erb" )
-  eruby_script = fh.read
-  tp = 'off'
-  tpc = tp.upcase
-  erb = ERB.new(eruby_script)
-  output = File.new("off.rb", 'w')
-  output.puts erb.result(binding)
-  output.chmod 0755 
-  output.close
-  puts "Creating #{tp}.rb"
-  sh "sudo chown apache:apache #{tp}.rb"
-end
+task :default => :install
 
 task :clean do
-  puts "rm -f off.rb on.rb nohup.out"
-  sh   "rm -f off.rb on.rb nohup.out" 
+#  puts "rm -f off.rb on.rb nohup.out"
+#  sh   "rm -f off.rb on.rb nohup.out" 
+  sh "clear"
 end
 
 
-task :install => [ :generate ] do
+task :install   do
   installdir = "" 
   if ENV['DESTDIR'] 
     installdir = ""  + ENV['DESTDIR']
@@ -69,11 +41,9 @@ task :install => [ :generate ] do
   puts "install -p -m644 -o root -g root *.png #{installdir}#{basedir}"
   sh   "install -p -m644 -o root -g root *.png #{installdir}#{basedir}"
 
-  # install the generated files
-  puts "install -p -m755 -o root -g root on.rb #{installdir}#{basedir}"
-  sh   "install -p -m755 -o root -g root on.rb #{installdir}#{basedir}"
-  puts "install -p -m755 -o root -g root off.rb #{installdir}#{basedir}"
-  sh   "install -p -m755 -o root -g root off.rb #{installdir}#{basedir}"
+  # install the controller file
+  puts "install -p -m755 -o root -g root x10-controller.rb #{installdir}#{basedir}"
+  sh   "install -p -m755 -o root -g root x10-controller.rb #{installdir}#{basedir}"
 
   # Restart Apache
   puts "/sbin/service httpd restart"
