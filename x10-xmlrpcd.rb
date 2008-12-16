@@ -1,25 +1,30 @@
 #!/usr/bin/env ruby
 
 # BSD License
-# Copyright 2008 Michael Stahnke
+# Copyright 2008 Michael Stahnke and Stahnkage.com
 
 require "xmlrpc/server"
 
-#TODO swap out heyu for another software that has a better license 
-x10_command = '/usr/local/bin/heyu'
+x10_controller = 'mythtv.stahnkage.com'
+remote_user = 'stahnma'
+ssh_key = '/home/stahnma/.ssh/id_dsa'
+#TODO  swap out heyu for another software that has a better license 
+remote_command = '/usr/local/bin/heyu'
 on_command = 'fon'
 off_command = 'foff'
 
-#TODO need a variable to bind to local IP address or something
+
 s = XMLRPC::Server.new(port=8080, host='192.168.1.104') 
 
 s.add_handler("x10.remote.on") do |address|
-  command =x10_command + ' ' + on_command + ' ' + address.to_s + '"'
+  command = '/usr/local/bin/heyu fon ' + address.to_s
+  #puts command
   %x(#{command})
 end
 
 s.add_handler("x10.remote.off") do |address| 
-  command =x10_command + ' ' + off_command + ' ' + address.to_s + '"'
+  command = '/usr/local/bin/heyu foff ' + address.to_s
+  #puts command
   %x(#{command})
 end
 

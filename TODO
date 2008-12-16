@@ -9,3 +9,4 @@ x Implement Rake clean
 * Autobuild tarball
 * FHS compliant
 * Break into  client/server portions
+* Writer a logger method for the xmlrpcd server
